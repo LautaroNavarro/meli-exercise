@@ -1,28 +1,30 @@
-package utils
+package determination
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 )
 
-func validateAdn(adn []string) error {
+func validateDna(dna []string) error {
 
-	if len(adn) != 6 {
-		return errors.New("Invalid adn length")
+	fmt.Println("Length :", len(dna))
+	if len(dna) != 6 {
+		return errors.New("Invalid DNA. Dna must be a Matrix 6x6")
 	}
-	for i := 0; i < len(adn); i++ {
-		if len(adn[i]) != 6 {
-			return errors.New("Invalid adn length")
+	for i := 0; i < len(dna); i++ {
+		if len(dna[i]) != 6 {
+			return errors.New("Invalid DNA. Dna must be a Matrix 6x6")
 		}
-		for j := 0; j < len(adn[i]); j++ {
+		for j := 0; j < len(dna[i]); j++ {
 			valid := false
 			for _, char := range []byte{65, 84, 67, 71} {
-				if char == adn[i][j] {
+				if char == dna[i][j] {
 					valid = true
 				}
 			}
 			if !valid {
-				return errors.New("Invalid adn char")
+				return errors.New("Invalid DNA. Matrix elements must be one of [A, T, C, G]")
 			}
 		}
 	}
@@ -30,22 +32,23 @@ func validateAdn(adn []string) error {
 	return nil
 }
 
-// IsMutant returns true if a given adn is mutant, else returns false
-func IsMutant(adn []string) (bool, error) {
+// IsMutant returns true if a given dna is mutant, else returns false
+func IsMutant(dna []string) (bool, error) {
 
-	if err := validateAdn(adn); err != nil {
+	if err := validateDna(dna); err != nil {
+		fmt.Println(err)
 		return false, err
 	}
 
-	if checkHorizontal(adn) {
+	if checkHorizontal(dna) {
 		return true, nil
 	}
 
-	if checkVertical(adn) {
+	if checkVertical(dna) {
 		return true, nil
 	}
 
-	if checkDiagonal(adn) {
+	if checkDiagonal(dna) {
 		return true, nil
 	}
 
@@ -53,16 +56,24 @@ func IsMutant(adn []string) (bool, error) {
 }
 
 func stringIsMutant(str string) bool {
-	for _, searchString := range []string{"AAAA", "CCCC", "TTTT", "GGGG"} {
-		if strings.Count(str, searchString) >= 1 {
-			return true
+	for _, char := range []byte{65, 84, 67, 71} {
+		counter := 0
+		for i := 0; i < len(str); i++ {
+			if str[i] == char {
+				counter++
+				if counter >= 4 {
+					return true
+				}
+			} else {
+				counter = 0
+			}
 		}
 	}
 	return false
 }
 
-func checkHorizontal(adn []string) bool {
-	for _, row := range adn {
+func checkHorizontal(dna []string) bool {
+	for _, row := range dna {
 		if stringIsMutant(row) {
 			return true
 		}
@@ -70,7 +81,7 @@ func checkHorizontal(adn []string) bool {
 	return false
 }
 
-func checkDiagonal(adn []string) bool {
+func checkDiagonal(dna []string) bool {
 	var builder strings.Builder
 
 	for x := 0; x <= 2; x++ {
@@ -79,7 +90,7 @@ func checkDiagonal(adn []string) bool {
 				x2 := x
 				y2 := y
 				for x2 != 6 && y2 != 6 {
-					builder.WriteByte(adn[x2][y2])
+					builder.WriteByte(dna[x2][y2])
 					x2++
 					y2++
 				}
@@ -97,7 +108,7 @@ func checkDiagonal(adn []string) bool {
 				x2 := x
 				y2 := y
 				for x2 != 6 && y2 != -1 {
-					builder.WriteByte(adn[x2][y2])
+					builder.WriteByte(dna[x2][y2])
 					x2++
 					y2--
 				}
@@ -112,11 +123,11 @@ func checkDiagonal(adn []string) bool {
 	return false
 }
 
-func checkVertical(adn []string) bool {
+func checkVertical(dna []string) bool {
 	var builder strings.Builder
 	for y := 0; y < 6; y++ {
 		for x := 0; x < 6; x++ {
-			builder.WriteByte(adn[x][y])
+			builder.WriteByte(dna[x][y])
 		}
 		if stringIsMutant(builder.String()) {
 			return true

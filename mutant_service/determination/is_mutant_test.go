@@ -1,8 +1,6 @@
-package utils
+package determination
 
-import (
-	"testing"
-)
+import "testing"
 
 func TestCalculateNotMutants(t *testing.T) {
 
@@ -35,7 +33,7 @@ func TestCalculateNotMutants(t *testing.T) {
 	for _, notMutant := range notMutants {
 		result, _ := IsMutant(notMutant)
 		if result == true {
-			t.Error("ADN expected to be not mutant. ", notMutant)
+			t.Error("DNA expected to be not mutant. ", notMutant)
 		}
 	}
 
@@ -80,7 +78,7 @@ func TestCalculateVerticalsMutants(t *testing.T) {
 	for _, mutant := range mutants {
 		result, _ := IsMutant(mutant)
 		if result == false {
-			t.Error("ADN expected to be mutant. ", mutant)
+			t.Error("DNA expected to be mutant. ", mutant)
 		}
 	}
 
@@ -125,7 +123,7 @@ func TestCalculateLeftDiagonalMutants(t *testing.T) {
 	for _, mutant := range mutants {
 		result, _ := IsMutant(mutant)
 		if result == false {
-			t.Error("ADN expected to be mutant. ", mutant)
+			t.Error("DNA expected to be mutant. ", mutant)
 		}
 	}
 
@@ -170,7 +168,7 @@ func TestCalculateRigthDiagonalMutants(t *testing.T) {
 	for _, mutant := range mutants {
 		result, _ := IsMutant(mutant)
 		if result == false {
-			t.Error("ADN expected to be mutant. ", mutant)
+			t.Error("DNA expected to be mutant. ", mutant)
 		}
 	}
 
@@ -207,21 +205,21 @@ func TestCalculateHorizontallMutants(t *testing.T) {
 	for _, mutant := range mutants {
 		result, _ := IsMutant(mutant)
 		if result == false {
-			t.Error("ADN expected to be mutant. ", mutant)
+			t.Error("DNA expected to be mutant. ", mutant)
 		}
 	}
 }
 
-func TestValidateAdn(t *testing.T) {
+func TestValidateDna(t *testing.T) {
 
 	type validationTest struct {
-		adn   []string
+		dna   []string
 		valid bool
 	}
 
 	validationTests := []validationTest{
 		validationTest{
-			adn: []string{
+			dna: []string{
 				"AAAAGA",
 				"ACGTGC",
 				"ATATAT",
@@ -232,7 +230,7 @@ func TestValidateAdn(t *testing.T) {
 			valid: true,
 		},
 		validationTest{
-			adn: []string{
+			dna: []string{
 				"AAAAGA",
 				"ACGTGC",
 				"ATATAT",
@@ -242,7 +240,7 @@ func TestValidateAdn(t *testing.T) {
 			valid: false,
 		},
 		validationTest{
-			adn: []string{
+			dna: []string{
 				"AAAAG",
 				"ACGTGC",
 				"ATATAT",
@@ -253,7 +251,7 @@ func TestValidateAdn(t *testing.T) {
 			valid: false,
 		},
 		validationTest{
-			adn: []string{
+			dna: []string{
 				"ZAAAGA",
 				"ACGTGC",
 				"ATATAT",
@@ -265,21 +263,20 @@ func TestValidateAdn(t *testing.T) {
 		},
 	}
 	for _, vt := range validationTests {
-		_, error := IsMutant(vt.adn)
+		_, error := IsMutant(vt.dna)
 
 		if error != nil && vt.valid == true {
-			t.Error("ADN expected to be valid. ", vt.adn)
+			t.Error("DNA expected to be valid. ", vt.dna)
 		}
 
 		if error == nil && vt.valid == false {
-			t.Error("ADN expected to be invalid. ", vt.adn)
+			t.Error("DNA expected to be invalid. ", vt.dna)
 		}
 	}
 
 }
 
 func BenchmarkCalculatorWorstCase(b *testing.B) {
-	// run the Fib function b.N times
 	for n := 0; n < b.N; n++ {
 		IsMutant([]string{
 			"ATGCGA",
