@@ -1,4 +1,4 @@
-module meli-exercise/mutant_service
+module meli-exercise/mutant_determination_service
 
 go 1.14
 

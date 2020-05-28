@@ -1,7 +1,7 @@
 package main
 
 import (
-	"meli-exercise/mutant_service/determination"
+	"meli-exercise/mutant_determination_service/determination"
 
 	"github.com/gin-gonic/gin"
 )

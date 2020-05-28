@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mutant-determination-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: mds
+  template:
+    metadata:
+      labels:
+        component: mds
+    spec:
+      containers:
+        - name: client
+          image: lautaronavarro/mutant-determination-service
+          ports:
+            - containerPort: 8080
