@@ -7,3 +7,5 @@ test:
 deploy:
 	docker build -t lautaronavarro/mutant-determination-service:$(SHA) -f mutant_determination_service/Dockerfile mutant_determination_service/.
 	docker push lautaronavarro/mutant-determination-service:$(SHA)
+	docker image tag lautaronavarro/mutant-determination-service:$(SHA) lautaronavarro/mutant-determination-service
+	docker push lautaronavarro/mutant-determination-service
