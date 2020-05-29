@@ -8,6 +8,7 @@ import (
 
 func main() {
 	router := gin.Default()
-	router.POST("/mutant/", determination.IsMutantController)
+
+	router.POST("/public/mutant/", determination.IsMutantController)
 	router.Run(":8080")
 }
