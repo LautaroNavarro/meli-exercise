@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mutant-statistics-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: mss
+  template:
+    metadata:
+      labels:
+        component: mss
+    spec:
+      containers:
+        - name: client
+          image: lautaronavarro/mutant-statistics-service
+          ports:
+            - containerPort: 8080

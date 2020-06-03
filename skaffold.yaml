@@ -8,15 +8,25 @@ build:
       context: mutant_determination_service
       docker:
         dockerfile: Dockerfile.dev
+    - image: lautaronavarro/mutant-statistics-service
+      context: mutant_statistics_service
+      docker:
+        dockerfile: Dockerfile.dev
 deploy:
   kubectl:
     manifests:
 
       - k8s/ingress-service/ingress-service.yaml
 
-      - k8s/mutant-determination-service/cluster_ip_service.yaml
+      - k8s/mutant-determination-service/cluster-ip-service.yaml
       - k8s/mutant-determination-service/deployment.yaml
 
-      - k8s/mongo/cluster_ip_service.yaml
+      - k8s/mutant-statistics-service/cluster-ip-service.yaml
+      - k8s/mutant-statistics-service/deployment.yaml
+
+      - k8s/redis/cluster-ip-service.yaml
+      - k8s/redis/deployment.yaml
+
+      - k8s/mongo/cluster-ip-service.yaml
       - k8s/mongo/deployment.yaml
-      - k8s/mongo/persistent_volume_claim.yaml
+      - k8s/mongo/persistent-volume-claim.yaml

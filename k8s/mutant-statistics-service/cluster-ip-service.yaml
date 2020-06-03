@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mutant-statistics-service-cluster-ip-service
+spec:
+  type: ClusterIP
+  selector:
+    component: mss
+  ports:
+    - port: 8080
+      targetPort: 8080

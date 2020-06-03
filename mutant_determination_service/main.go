@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"meli-exercise/mutant_determination_service/determination"
 	"meli-exercise/mutant_determination_service/storage"
 
@@ -24,7 +25,14 @@ func main() {
 	router.POST("/public/mutant/", func(ctx *gin.Context) {
 		determination.IsMutantController(
 			ctx,
-			func(matrix []string, isMutant bool) { storage.StoreDna(client, matrix, isMutant) },
+			func(matrix []string, isMutant bool) {
+				_, err := storage.StoreDna(client, matrix, isMutant)
+				if err != nil {
+					fmt.Println("Calling MSS service")
+				} else {
+					fmt.Println("Not MSS service")
+				}
+			},
 		)
 	})
 	router.Run(":8080")

@@ -14,3 +14,7 @@ spec:
             backend:
               serviceName: mutant-determination-service-cluster-ip-service
               servicePort: 8080
+          - path: /mss/?(.*)
+            backend:
+              serviceName: mutant-statistics-service-cluster-ip-service
+              servicePort: 8080
