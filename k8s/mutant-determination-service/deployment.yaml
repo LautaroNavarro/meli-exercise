@@ -17,3 +17,15 @@ spec:
           image: lautaronavarro/mutant-determination-service
           ports:
             - containerPort: 8080
+          env:
+            - name: MONGOUSER
+              value: admin
+            - name: MONGOHOST
+              value: mongo-cluster-ip-service
+            - name: MONGODATABASE
+              value: determination_service
+            - name: MONGOPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongopassword
+                  key: MONGOPASSWORD

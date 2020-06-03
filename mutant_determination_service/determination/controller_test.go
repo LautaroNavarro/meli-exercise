@@ -15,7 +15,7 @@ func performRequest(dna Dna) int {
 	con, _ := gin.CreateTestContext(w)
 	req, _ := sling.New().Post("/mutant").BodyJSON(dna).Request()
 	con.Request = req
-	IsMutantController(con)
+	IsMutantController(con, func(matrix []string, isMutant bool) {})
 	return w.Result().StatusCode
 }
 

@@ -11,6 +11,12 @@ build:
 deploy:
   kubectl:
     manifests:
+
       - k8s/ingress-service/ingress-service.yaml
+
       - k8s/mutant-determination-service/cluster_ip_service.yaml
       - k8s/mutant-determination-service/deployment.yaml
+
+      - k8s/mongo/cluster_ip_service.yaml
+      - k8s/mongo/deployment.yaml
+      - k8s/mongo/persistent_volume_claim.yaml

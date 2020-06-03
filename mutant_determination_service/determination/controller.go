@@ -1,7 +1,6 @@
 package determination
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -15,10 +14,9 @@ const (
 
 // IsMutantController handle a request with a DNA inside the body, and inject into the context status ok if the
 // provided dna is mutant, else inject forbidden
-func IsMutantController(ctx *gin.Context) {
+func IsMutantController(ctx *gin.Context, f func(matrix []string, isMutant bool)) {
 	var dna Dna
 	if err := ctx.ShouldBindJSON(&dna); err != nil {
-		fmt.Println("INVALID REQUEST")
 		ctx.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid request"})
 		return
 	}
@@ -37,4 +35,7 @@ func IsMutantController(ctx *gin.Context) {
 	} else {
 		ctx.JSON(http.StatusForbidden, map[string]string{"result": notMutant})
 	}
+
+	go f(dna.Matrix, isMutant)
+
 }

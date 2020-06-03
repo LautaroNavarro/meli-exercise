@@ -7,8 +7,6 @@ import (
 )
 
 func validateDna(dna []string) error {
-
-	fmt.Println("Length :", len(dna))
 	if len(dna) != 6 {
 		return errors.New("Invalid DNA. Dna must be a Matrix 6x6")
 	}
