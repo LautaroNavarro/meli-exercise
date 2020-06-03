@@ -12,18 +12,14 @@ import (
 )
 
 const (
-	dnaCollection                      string = "dna"
-	mutantDeterminationServiceDatabase string = "mutant_determination_service"
+	// DnaCollection is the collection where we store the dnas
+	DnaCollection string = "dna"
+	// MutantDeterminationServiceDatabase is the DB for mutant determination service
+	MutantDeterminationServiceDatabase string = "mutant_determination_service"
 )
 
-// MongoClient is a mongo client interface
-type MongoClient interface {
-	Database(name string, opts ...*options.DatabaseOptions) *mongo.Database
-	Connect(ctx context.Context) error
-}
-
 // StoreDna stores the passed dna into MongoDb
-func StoreDna(client MongoClient, matrix []string, isMutant bool) (*mongo.InsertOneResult, error) {
+func StoreDna(client ClientInterface, matrix []string, isMutant bool) (interface{}, error) {
 	d := Dna{
 		IsMutant: isMutant,
 		Matrix:   matrix,
@@ -48,8 +44,8 @@ func (d *Dna) setHash() {
 }
 
 // Save the DNA into the mongodb
-func (d Dna) Save(ctx context.Context, client MongoClient) (*mongo.InsertOneResult, error) {
-	collection := client.Database(mutantDeterminationServiceDatabase).Collection(dnaCollection)
+func (d Dna) Save(ctx context.Context, client ClientInterface) (interface{}, error) {
+	collection := client.Database(MutantDeterminationServiceDatabase).Collection(DnaCollection)
 	mod := mongo.IndexModel{
 		Keys: bson.M{
 			"hash": 1,

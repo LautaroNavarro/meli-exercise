@@ -5,12 +5,67 @@ import (
 	"os"
 	"testing"
 
+	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+// mongoClientMock ...
+type mongoClientMock struct {
+}
+
+// mongoDatabaseMock ...
+type mongoDatabaseMock struct {
+}
+
+// mongoCollectionMock ...
+type mongoCollectionMock struct {
+}
+
+// mongoSingleResultMock ...
+type mongoSingleResultMock struct {
+}
+
+// mongoIndexesMock ...
+type mongoIndexesMock struct {
+}
+
+// Database ...
+func (mc *mongoClientMock) Database(dbName string) DatabaseInterface {
+	return &mongoDatabaseMock{}
+}
+
+// Connect ...
+func (mc *mongoClientMock) Connect(ctx context.Context) error {
+	return nil
+}
+
+// Collection ...
+func (md *mongoDatabaseMock) Collection(colName string) CollectionInterface {
+	return &mongoCollectionMock{}
+}
+
+// InsertOne ...
+func (mc *mongoCollectionMock) InsertOne(ctx context.Context, document interface{}) (interface{}, error) {
+	return document, nil
+}
+
+// Indexes ...
+func (mc *mongoCollectionMock) Indexes() IndexesInterface {
+	return &mongoIndexesMock{}
+}
+
+// CreateOne ...
+func (in *mongoIndexesMock) CreateOne(ctx context.Context, mod mongo.IndexModel, opts ...*options.CreateIndexesOptions) (string, error) {
+	return "", nil
+}
+
+// Decode ...
+func (sr *mongoSingleResultMock) Decode(v interface{}) error {
+	return nil
+}
+
 func TestGetConnection(t *testing.T) {
 
-	// newClient func(*options.ClientOptions) (MongoClient, error)
 	ctx := context.Background()
 	var usedClientOption *options.ClientOptions
 
@@ -22,9 +77,9 @@ func TestGetConnection(t *testing.T) {
 
 	cn := GetConnection(
 		ctx,
-		func(opt *options.ClientOptions) (MongoClient, error) {
+		func(opt *options.ClientOptions) (ClientInterface, error) {
 			usedClientOption = opt
-			return mongoClientMock{}, nil
+			return &mongoClientMock{}, nil
 		},
 	)
 

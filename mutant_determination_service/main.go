@@ -16,8 +16,9 @@ func main() {
 	router := gin.Default()
 	ctx := context.Background()
 
-	client := storage.GetConnection(ctx, func(opt *options.ClientOptions) (storage.MongoClient, error) {
-		return mongo.NewClient(opt)
+	client := storage.GetConnection(ctx, func(opt *options.ClientOptions) (storage.ClientInterface, error) {
+		client, _ := mongo.NewClient(opt)
+		return &storage.MongoClient{Cl: client}, nil
 	})
 
 	router.POST("/public/mutant/", func(ctx *gin.Context) {
