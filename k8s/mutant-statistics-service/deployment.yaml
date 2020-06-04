@@ -17,3 +17,9 @@ spec:
           image: lautaronavarro/mutant-statistics-service
           ports:
             - containerPort: 8080
+          env:
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redispassword
+                  key: REDISPASSWORD
