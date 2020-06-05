@@ -1,8 +1,7 @@
 package main
 
 import (
-	"meli-exercise/mutant_statistics_service/statistics"
-
+	"meli-exercise/mutant_statistics_service/getstatistics"
 	"meli-exercise/mutant_statistics_service/storage"
 
 	"github.com/gin-gonic/gin"
@@ -14,7 +13,7 @@ func main() {
 	router := gin.Default()
 	redisConn := storage.GetRedisConn(redis.Dial)
 	router.POST("/public/stats/", func(ctx *gin.Context) {
-		statistics.GetStatisticsController(ctx, redisConn)
+		getstatistics.GetStatisticsController(ctx, redisConn)
 	})
 
 	router.Run(":8080")

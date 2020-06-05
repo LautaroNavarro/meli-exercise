@@ -28,9 +28,9 @@ func main() {
 			func(matrix []string, isMutant bool) {
 				_, err := storage.StoreDna(client, matrix, isMutant)
 				if err != nil {
-					fmt.Println("Calling MSS service")
-				} else {
 					fmt.Println("Not MSS service")
+				} else {
+					fmt.Println("Calling MSS service")
 				}
 			},
 		)

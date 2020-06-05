@@ -1,4 +1,4 @@
-package statistics
+package getstatistics
 
 import (
 	"context"
