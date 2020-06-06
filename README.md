@@ -3,6 +3,23 @@
 
 Here you will find a set of services for mutant determination and statistics generation.
 
+- [meli-exercise](#meli-exercise)
+  - [Services](#services)
+    - [Mutant determination service](#mutant-determination-service)
+      - [Domain](#domain)
+      - [Domain knowledge](#domain-knowledge)
+      - [Technical description](#technical-description)
+    - [Mutant statistics service](#mutant-statistics-service)
+      - [Domain](#domain-1)
+      - [Technical description](#technical-description-1)
+  - [Public actions vs private actions](#public-actions-vs-private-actions)
+  - [Communication between services](#communication-between-services)
+  - [Architecture](#architecture)
+  - [Diagrams](#diagrams)
+    - [Determinate dna action](#determinate-dna-action)
+    - [Get stats action](#get-stats-action)
+  - [Getting started](#getting-started)
+
 ## Services
 
 ### Mutant determination service
