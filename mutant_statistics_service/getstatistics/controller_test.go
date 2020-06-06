@@ -17,27 +17,27 @@ func performRequest(dm redis.Conn) (int, io.ReadCloser) {
 	con, _ := gin.CreateTestContext(w)
 	req, _ := sling.New().Get("/public/stats/").Request()
 	con.Request = req
-	GetStatisticsController(con, dm)
+	Controller(con, dm)
 	return w.Result().StatusCode, w.Result().Body
 }
 
-func TestGetStatisticsController(t *testing.T) {
+func TestController(t *testing.T) {
 
-	type getStatisticsControllerTestSuit struct {
+	type controllerTest struct {
 		dm          dialMock
 		statusCode  int
 		body        string
 		description string
 	}
 
-	getStatistics := []getStatisticsControllerTestSuit{
-		getStatisticsControllerTestSuit{
+	controllerTestSuite := []controllerTest{
+		controllerTest{
 			dm:          dialMock{returnHumanMutant: []byte("2"), returnHuman: []byte("2"), done: []map[string]string{}},
 			statusCode:  200,
 			body:        `{"count_human_dna":2,"count_mutant_dna":2,"ratio":1}`,
 			description: "Two humans, two mutants, ratio 1",
 		},
-		getStatisticsControllerTestSuit{
+		controllerTest{
 			dm:          dialMock{returnHumanMutant: []byte("4"), returnHuman: []byte("10"), done: []map[string]string{}},
 			statusCode:  200,
 			body:        `{"count_human_dna":10,"count_mutant_dna":4,"ratio":0.4}`,
@@ -45,17 +45,17 @@ func TestGetStatisticsController(t *testing.T) {
 		},
 	}
 
-	for _, mt := range getStatistics {
-		resultStatusCode, resultBody := performRequest(&mt.dm)
-		if resultStatusCode != mt.statusCode {
-			t.Errorf("%v. Status code is %v and should be %v", mt.description, resultStatusCode, mt.statusCode)
+	for _, ct := range controllerTestSuite {
+		resultStatusCode, resultBody := performRequest(&ct.dm)
+		if resultStatusCode != ct.statusCode {
+			t.Errorf("%v. Status code is %v and should be %v", ct.description, resultStatusCode, ct.statusCode)
 		}
 
 		buf := new(bytes.Buffer)
 		buf.ReadFrom(resultBody)
 		stringifiedBody := buf.String()
-		if stringifiedBody != mt.body {
-			t.Errorf("%v. Body is %v and should be %v", mt.description, stringifiedBody, mt.body)
+		if stringifiedBody != ct.body {
+			t.Errorf("%v. Body is %v and should be %v", ct.description, stringifiedBody, ct.body)
 		}
 	}
 

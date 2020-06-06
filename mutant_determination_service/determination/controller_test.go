@@ -21,41 +21,41 @@ func performRequest(dna Dna) int {
 
 func TestIsMutantController(t *testing.T) {
 
-	type isMutantControllerTest struct {
+	type controllerTest struct {
 		dna         Dna
 		statusCode  int
 		description string
 	}
 
-	isMutantControllerTests := []isMutantControllerTest{
-		isMutantControllerTest{
+	controllerTestSuite := []controllerTest{
+		controllerTest{
 			dna:         Dna{Matrix: []string{"ATGC", "TAGC", "ATGC", "ATGC", "TAGC"}},
 			statusCode:  http.StatusBadRequest,
 			description: "Matrix is 5X6. Must be 6x6",
 		},
-		isMutantControllerTest{
+		controllerTest{
 			dna:         Dna{Matrix: []string{"ATGC", "TAGC", "AZGC", "ATGC", "TAGC", "ATCG"}},
 			statusCode:  http.StatusBadRequest,
 			description: "Matrix is 6X5. Must be 6x6",
 		},
-		isMutantControllerTest{
+		controllerTest{
 			dna:         Dna{Matrix: []string{"ATGC", "TAGC", "AZGC", "ATGC", "TAGC", "ATCG"}},
 			statusCode:  http.StatusBadRequest,
 			description: "Invalid char 'Z'",
 		},
-		isMutantControllerTest{
+		controllerTest{
 			dna:         Dna{Matrix: []string{"AAAAGA", "ACGTGC", "AAAAGT", "TGAACG", "CGCCTT", "TCACTG"}},
 			statusCode:  http.StatusOK,
 			description: "Valid mutant",
 		},
-		isMutantControllerTest{
+		controllerTest{
 			dna:         Dna{Matrix: []string{"ATGCGA", "ACGTGC", "ATGCAG", "TGAACG", "CGCCTT", "TCACTG"}},
 			statusCode:  http.StatusForbidden,
 			description: "Valid not mutant",
 		},
 	}
 
-	for _, ct := range isMutantControllerTests {
+	for _, ct := range controllerTestSuite {
 		result := performRequest(ct.dna)
 		if result != ct.statusCode {
 			t.Errorf("%v. Status code is %v and should be %v", ct.description, result, ct.statusCode)

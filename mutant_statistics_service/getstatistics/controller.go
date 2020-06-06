@@ -7,8 +7,8 @@ import (
 	"github.com/gomodule/redigo/redis"
 )
 
-// GetStatisticsController handles a request and inyect the statistics for human DNAs
-func GetStatisticsController(ctx *gin.Context, redisConn redis.Conn) {
+// Controller handles a request and inyect the statistics for human DNAs
+func Controller(ctx *gin.Context, redisConn redis.Conn) {
 
 	st := statistics{rc: redisConn, ctx: ctx}
 
