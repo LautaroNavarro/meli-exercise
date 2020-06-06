@@ -1,9 +1,9 @@
-# meli-exercise
+# Meli exercise
 [![Build Status](https://travis-ci.org/LautaroNavarro/meli-exercise.svg?branch=master)](https://travis-ci.org/LautaroNavarro/meli-exercise)
 
 Here you will find a set of services for mutant determination and statistics generation.
 
-- [meli-exercise](#meli-exercise)
+- [Meli exercise](#meli-exercise)
   - [Services](#services)
     - [Mutant determination service](#mutant-determination-service)
       - [Domain](#domain)
