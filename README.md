@@ -16,7 +16,7 @@ Here you will find a set of services for mutant determination and statistics gen
   - [Communication between services](#communication-between-services)
   - [Architecture](#architecture)
   - [Diagrams](#diagrams)
-    - [Determinate dna action](#determinate-dna-action)
+    - [Determine dna action](#determine-dna-action)
     - [Get stats action](#get-stats-action)
   - [Getting started](#getting-started)
 
@@ -31,7 +31,7 @@ Calculate if a human dna is mutant or not, that includes validate if the dna is 
 #### Domain knowledge
 
 * Human DNA: We consider a dna as human dna, when it is a matrix NxN and its items are inside this list ["A", "T", "C", "G"].
-* Mutant humand DNA: We consider a human dna as a mutant human dna, when there are four or more equals and consecutives letters vertically, horizontally or diagonally.
+* Mutant human DNA: We consider a human dna as a mutant human dna, when there are four or more equals and consecutives letters vertically, horizontally or diagonally.
 
 ![image](https://drive.google.com/uc?export=view&id=1ubC0WNumqg_AVkCTPHjNgfMK9TYvkJbg)
 
@@ -71,7 +71,7 @@ The benefits of using HTTP instead of a message broker are:
 
 ## Diagrams
 
-### Determinate dna action
+### Determine dna action
 ![image](https://drive.google.com/uc?export=view&id=1ylzQoK-HMhZyYQ6jj29hKOOuNWKLohIP)
 
 ### Get stats action
@@ -79,12 +79,12 @@ The benefits of using HTTP instead of a message broker are:
 
 ## Getting started
 
-To get this proyect working on your local machine, you will need the following dependencies:
+To get this project working on your local machine, you will need the following dependencies:
 * Docker
 * Skaffold
 * Minikube | Docker for Mac >= 18.06 | A k8s cluster to deploy the apps
 
-To start the proyect you just need to run
+To start the project you just need to run
 
     skaffold dev
 
