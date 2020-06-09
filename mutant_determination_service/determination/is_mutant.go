@@ -2,17 +2,17 @@ package determination
 
 import (
 	"errors"
-	"fmt"
 	"strings"
 )
 
 func validateDna(dna []string) error {
-	if len(dna) != 6 {
-		return errors.New("Invalid DNA. Dna must be a Matrix 6x6")
+	if len(dna) == 0 {
+		return errors.New("Invalid DNA. Dna can not be empty")
 	}
+
 	for i := 0; i < len(dna); i++ {
-		if len(dna[i]) != 6 {
-			return errors.New("Invalid DNA. Dna must be a Matrix 6x6")
+		if len(dna) != len(dna[i]) {
+			return errors.New("Invalid DNA. Dna must be a Matrix NxN")
 		}
 		for j := 0; j < len(dna[i]); j++ {
 			valid := false
@@ -34,19 +34,10 @@ func validateDna(dna []string) error {
 func IsMutant(dna []string) (bool, error) {
 
 	if err := validateDna(dna); err != nil {
-		fmt.Println(err)
 		return false, err
 	}
 
-	if checkHorizontal(dna) {
-		return true, nil
-	}
-
-	if checkVertical(dna) {
-		return true, nil
-	}
-
-	if checkDiagonal(dna) {
+	if len(dna) >= 4 && (checkHorizontal(dna) || checkVertical(dna) || checkDiagonal(dna)) {
 		return true, nil
 	}
 
@@ -82,12 +73,12 @@ func checkHorizontal(dna []string) bool {
 func checkDiagonal(dna []string) bool {
 	var builder strings.Builder
 
-	for x := 0; x <= 2; x++ {
-		for y := 0; y <= 2; y++ {
+	for x := 0; x <= len(dna)-4; x++ {
+		for y := 0; y <= len(dna)-4; y++ {
 			if x == 0 || y == 0 {
 				x2 := x
 				y2 := y
-				for x2 != 6 && y2 != 6 {
+				for x2 != len(dna) && y2 != len(dna) {
 					builder.WriteByte(dna[x2][y2])
 					x2++
 					y2++
@@ -101,11 +92,11 @@ func checkDiagonal(dna []string) bool {
 	}
 
 	for x := 0; x <= 2; x++ {
-		for y := 3; y <= 5; y++ {
-			if x == 0 || y == 5 {
+		for y := 3; y <= len(dna)-1; y++ {
+			if x == 0 || y == len(dna)-1 {
 				x2 := x
 				y2 := y
-				for x2 != 6 && y2 != -1 {
+				for x2 != len(dna) && y2 != -1 {
 					builder.WriteByte(dna[x2][y2])
 					x2++
 					y2--
@@ -123,8 +114,8 @@ func checkDiagonal(dna []string) bool {
 
 func checkVertical(dna []string) bool {
 	var builder strings.Builder
-	for y := 0; y < 6; y++ {
-		for x := 0; x < 6; x++ {
+	for y := 0; y < len(dna); y++ {
+		for x := 0; x < len(dna); x++ {
 			builder.WriteByte(dna[x][y])
 		}
 		if stringIsMutant(builder.String()) {

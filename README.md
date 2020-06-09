@@ -30,7 +30,7 @@ Calculate if a human dna is mutant or not, that includes validate if the dna is 
 
 #### Domain knowledge
 
-* Human DNA: We consider a dna as human dna, when it is a matrix 6x6 and its items are inside this list ["A", "T", "C", "G"].
+* Human DNA: We consider a dna as human dna, when it is a matrix NxN and its items are inside this list ["A", "T", "C", "G"].
 * Mutant humand DNA: We consider a human dna as a mutant human dna, when there are four or more equals and consecutives letters vertically, horizontally or diagonally.
 
 ![image](https://drive.google.com/uc?export=view&id=1ubC0WNumqg_AVkCTPHjNgfMK9TYvkJbg)

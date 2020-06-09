@@ -29,6 +29,27 @@ func TestCalculateNotMutants(t *testing.T) {
 			"CGCCTT",
 			"TCACTG",
 		},
+		{
+			"ATGCGAC",
+			"ACGTGCA",
+			"ATATGTC",
+			"TGAACGC",
+			"CGCCTTG",
+			"TCACTGA",
+			"ATGCGAC",
+		},
+		{
+			"TCA",
+			"TCA",
+			"TCA",
+		},
+		{
+			"TA",
+			"TA",
+		},
+		{
+			"T",
+		},
 	}
 	for _, notMutant := range notMutants {
 		result, _ := IsMutant(notMutant)
@@ -73,6 +94,15 @@ func TestCalculateVerticalsMutants(t *testing.T) {
 			"AGTAGG",
 			"TTGCTG",
 			"TGACTG",
+		},
+		{
+			"ATGCGAC",
+			"ACGTGCA",
+			"ATATGTC",
+			"TGAACGG",
+			"CGCCTTG",
+			"TCACTGG",
+			"ATGCGAG",
 		},
 	}
 	for _, mutant := range mutants {
@@ -119,6 +149,15 @@ func TestCalculateLeftDiagonalMutants(t *testing.T) {
 			"CGCCTA",
 			"TCACTG",
 		},
+		{
+			"ATGCGAC",
+			"ACGTGCA",
+			"ATATGTC",
+			"TGACTGC",
+			"CGCGCTG",
+			"TCACTCA",
+			"ATGCGAC",
+		},
 	}
 	for _, mutant := range mutants {
 		result, _ := IsMutant(mutant)
@@ -164,6 +203,15 @@ func TestCalculateRigthDiagonalMutants(t *testing.T) {
 			"CGCCTT",
 			"GCACTG",
 		},
+		{
+			"ATGCGAC",
+			"ACGTGCA",
+			"ATATGTC",
+			"TGACCGC",
+			"CGCCTTG",
+			"TCACTGA",
+			"CTGCGAC",
+		},
 	}
 	for _, mutant := range mutants {
 		result, _ := IsMutant(mutant)
@@ -200,6 +248,15 @@ func TestCalculateHorizontallMutants(t *testing.T) {
 			"TGAACG",
 			"CGCCTT",
 			"TCACTG",
+		},
+		{
+			"ATGCGAC",
+			"ACGTGCA",
+			"ATATGTC",
+			"TGAACGC",
+			"CGCCTTG",
+			"TCACTGA",
+			"ATGCCCC",
 		},
 	}
 	for _, mutant := range mutants {
@@ -260,6 +317,18 @@ func TestValidateDna(t *testing.T) {
 				"TCACTG",
 			},
 			valid: false,
+		},
+		validationTest{
+			dna: []string{
+				"GAAAGAC",
+				"ACGTGCC",
+				"ATATATC",
+				"TGAAGGC",
+				"CGCCTAC",
+				"TCACTGC",
+				"TGAAGGC",
+			},
+			valid: true,
 		},
 	}
 	for _, vt := range validationTests {
