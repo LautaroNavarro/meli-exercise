@@ -13,7 +13,7 @@ spec:
         component: mds
     spec:
       containers:
-        - name: client
+        - name: mds
           image: lautaronavarro/mutant-determination-service
           ports:
             - containerPort: 8080

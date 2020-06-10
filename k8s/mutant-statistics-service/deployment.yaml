@@ -13,7 +13,7 @@ spec:
         component: mss
     spec:
       containers:
-        - name: client
+        - name: mss
           image: lautaronavarro/mutant-statistics-service
           ports:
             - containerPort: 8080
