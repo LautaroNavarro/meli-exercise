@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: mutant-determination-service
 spec:
-  replicas: 1
+  replicas: 5
   selector:
     matchLabels:
       component: mds
