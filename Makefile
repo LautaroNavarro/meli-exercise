@@ -19,3 +19,12 @@ deploy:
 	docker push lautaronavarro/mutant-statistics-service:$(SHA)
 	docker image tag lautaronavarro/mutant-statistics-service:$(SHA) lautaronavarro/mutant-statistics-service
 	docker push lautaronavarro/mutant-statistics-service
+	# Apply k8s config files
+	kubectl apply -f k8s/ingress-service
+	kubectl apply -f k8s/mongo
+	kubectl apply -f k8s/mutant-determination-service
+	kubectl apply -f k8s/mutant-statistics-service
+	kubectl apply -f k8s/redis
+	# Force image update to commit images
+	kubectl set image deployments/mutant-statistics-service lautaronavarro/mutant-statistics-service:$(SHA)
+	kubectl set image deployments/mutant-determination-service lautaronavarro/mutant-determination-service:$(SHA)
