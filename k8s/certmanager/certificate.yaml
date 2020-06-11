@@ -1,0 +1,20 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+    name: mutant-services-tls
+spec:
+    secretName: mutant.services
+    issuerRef:
+        name: letsencrypt-prod
+        kind: ClusterIssuer
+    commonName: mutant.services
+    dnsNames:
+        - mutant.services
+        - www.mutant.services
+    acme:
+        config:
+            - http01:
+                ingressClass: nginx
+            domains:
+                - mutant.services
+                - www.mutant.services

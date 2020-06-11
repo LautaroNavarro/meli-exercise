@@ -25,6 +25,7 @@ deploy:
 	kubectl apply -f k8s/mutant-determination-service
 	kubectl apply -f k8s/mutant-statistics-service
 	kubectl apply -f k8s/redis
+	kubectl apply -f k8s/certmanager
 	# Force image update to commit images
 	kubectl set image deployments/mutant-statistics-service mss=lautaronavarro/mutant-statistics-service:$(SHA)
 	kubectl set image deployments/mutant-determination-service mds=lautaronavarro/mutant-determination-service:$(SHA)
