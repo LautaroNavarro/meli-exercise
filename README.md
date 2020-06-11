@@ -19,6 +19,8 @@ Here you will find a set of services for mutant determination and statistics gen
     - [Determine dna action](#determine-dna-action)
     - [Get stats action](#get-stats-action)
   - [Getting started](#getting-started)
+    - [Local project](#local-project)
+    - [Run tests](#run-tests)
 
 ## Services
 
@@ -38,7 +40,7 @@ Calculate if a human dna is mutant or not, that includes validate if the dna is 
 
 #### Technical description
 
-This is a golang service builded with Docker. Data is stored in MongoDB.
+This is a golang service built with Docker. Data is stored in MongoDB.
 
 ### Mutant statistics service
 
@@ -48,7 +50,7 @@ Generate and return mutant human statistics.
 
 #### Technical description
 
-This is a golang service builded with Docker. Data is stored in Redis.
+This is a golang service built with Docker. Data is stored in Redis.
 
 ## Public actions vs private actions
 
@@ -84,10 +86,33 @@ To get this project working on your local machine, you will need the following d
 * Skaffold
 * Minikube | Docker for Mac >= 18.06 | A k8s cluster to deploy the apps
 
+### Local project
+
+You will need to create a secret for Redis connection and one for mongo connection
+
+    kubectl create secret generic mongopassword --from-literal MONGOPASSWORD=mongo_password
+    kubectl create secret generic redispassword --from-literal REDISPASSWORD=redis_password
+
+If you are using Minikube, enable the ingress addon
+
+    minikube addons enable ingress
+
 To start the project you just need to run
 
     skaffold dev
 
+To run unit tests, you just need docker and run the following command
+
+    make test
+
+That's it now you will be able to access your services through your ingress service.
+
+Notes:
+* If you are using Docker, you IP will be local host
+* If you are using Minikube run ```minikube ip``` to get your IP
+* If you are using another k8s cluster, get the public IP for your k8s cluster
+
+### Run tests
 To run unit tests, you just need docker and run the following command
 
     make test
